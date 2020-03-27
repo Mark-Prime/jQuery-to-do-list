@@ -121,7 +121,7 @@ function renderList(items) {
         $('#listTable').append(`<td>${item.name}</td>`);
         $('#listTable').append(`<td>${item.notes}</td>`);
         $('#listTable').append(`<td>${importanceArray[item.importance - 1]}</td>`);
-        $('#listTable').append(`<td></td>`);
+        $('#listTable').append(`<td><button class="btn btn-outline-danger my-2 my-sm-0" type="button">DELETE</button></td>`);
         $('#listTable').append(`</tr>`);
     }
 }
