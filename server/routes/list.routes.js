@@ -4,12 +4,34 @@ const pool = require('../modules/pool');
 
 // GET
 router.get('/', (req, res) => {
-    let queryText = 'SELECT * FROM "koalas" ORDER BY "name";';
+    let queryText = 'SELECT * FROM "todolist" ORDER BY "importance" DESC;';
     pool.query(queryText).then(result => {
         res.send(result.rows);
     })
         .catch(error => {
-            console.log('error getting books', error);
+            console.log('error getting items', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/complete', (req, res) => {
+    let queryText = `SELECT * FROM "todolist" WHERE "completed" = 'YES' ORDER BY "importance" DESC;`;
+    pool.query(queryText).then(result => {
+        res.send(result.rows);
+    })
+        .catch(error => {
+            console.log('error getting items', error);
+            res.sendStatus(500);
+        });
+});
+
+router.get('/incomplete', (req, res) => {
+    let queryText = `SELECT * FROM "todolist" WHERE "completed" = 'NO'  ORDER BY "importance" DESC;`;
+    pool.query(queryText).then(result => {
+        res.send(result.rows);
+    })
+        .catch(error => {
+            console.log('error getting items', error);
             res.sendStatus(500);
         });
 });
