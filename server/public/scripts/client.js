@@ -5,9 +5,34 @@ let importanceArray = ['Do it Later', 'Not Important', 'Moderate', 'Important', 
 $(document).ready(function () {
     console.log('JQ');
     getList();
+    $('#listTable').on('change', '.chk-complete', handleCheck)
 
 }); // end doc ready
 
+// Buttons
+function handleCheck() {
+    let id = this.id
+    let data = {};
+    if ($(this).is(':checked')) {
+        data.status = 'YES';
+    } else {
+        data.status = 'NO';
+    }
+
+    $.ajax({
+        type: 'PUT',
+        url: `/list/${id}`,
+        data
+    }).then(function (response) {
+        console.log('response:', response);
+    }).catch(function (error) {
+        console.log('error in GET', error);
+    });
+}
+
+
+
+// Search
 function getList() {
     console.log('in getList');
     
@@ -50,6 +75,8 @@ function getImporList(toSearch) {
     });
 }
 
+
+// Rendering to DOM
 function renderList(items) {
     $('#listTable').empty();
     for (let item of items) {

@@ -50,8 +50,8 @@ router.get('/incomplete', (req, res) => {
 
 // POST
 router.post('/', (req, res) => {
-    let newKoala = req.body;
-    console.log('Adding New Koala', newKoala);
+    let newItem = req.body;
+    console.log('Adding New Item', newKoala);
 
     let queryText = `INSERT INTO koalas (name, gender, age, ready_to_transfer, notes)
         VALUES($1, $2, $3, $4, $5);`
@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
-            console.log(`Error adding Koala`, error);
+            console.log(`Error adding item`, error);
             res.sendStatus(500);
         });
 })
@@ -67,13 +67,13 @@ router.post('/', (req, res) => {
 
 // PUT
 router.put('/:id', (req, res) => {
-    let koala = req.body;
+    let item = req.body;
     let id = req.params.id;
-    let queryText = `UPDATE koalas SET ready_to_transfer = $1
+    let queryText = `UPDATE todolist SET completed = $1
                     WHERE id = $2`;
-    pool.query(queryText, [koala.status, id])
+    pool.query(queryText, [item.status, id])
         .then(() => {
-            console.log(`Updating koala ${id} with `, koala);
+            console.log(`Updating item ${id} to`, item);
             res.sendStatus(200);
         }).catch((error) => {
             console.log('Error in UPDATE', error);
@@ -85,14 +85,14 @@ router.put('/:id', (req, res) => {
 // DELETE
 router.delete('/:id', (req, res) => {
     let id = req.params.id;
-    let queryText = `DELETE FROM "koalas" WHERE "id" = $1;`
+    let queryText = `DELETE FROM "todolist" WHERE "id" = $1;`
     pool.query(queryText, [req.params.id])
         .then(() => {
-            console.log('Delete Koala', id);
+            console.log('Delete item', id);
             res.sendStatus(200);
         }).catch((error) => {
             res.sendStatus(500);
-            console.log('Error on Delete Koala', error);
+            console.log('Error on Delete item', error);
         })
 });
 
