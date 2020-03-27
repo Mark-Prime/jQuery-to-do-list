@@ -64,6 +64,20 @@ router.post('/', (req, res) => {
         });
 })
 
+router.post('/search', (req, res) => {
+    let searchFor = req.body;
+    console.log('Searching for', searchFor);
+
+    let queryText = `SELECT * FROM "todolist" WHERE "name" ILIKE $1 OR "notes" ILIKE $1 ORDER BY "completed", "importance" DESC;`
+    pool.query(queryText, [`%${searchFor.searchFor}%`])
+        .then(result => {
+            res.send(result.rows);
+        }).catch(error => {
+            console.log(`Error finding item`, error);
+            res.sendStatus(500);
+        });
+})
+
 
 // PUT
 router.put('/:id', (req, res) => {

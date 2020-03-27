@@ -7,6 +7,7 @@ $(document).ready(function () {
     getList();
     $('#select-importance').val(3)
     $('#btn-add').on('click', handleAddButton)
+    $('#btn-search').on('click', handleSearch)
     $('#listTable').on('change', '.chk-complete', handleCheck)
     $('#listTable').on('click', '.btn-delete', handleDelete)
 
@@ -91,9 +92,26 @@ function handleAddButton(event) {
             text: 'You must include a Task Title!',
         })
     }
-    
 }
 
+function handleSearch(event) {
+    event.preventDefault();
+
+    let data = { searchFor: $('#in-search').val()};
+
+    $('#in-search').val('');
+
+    $.ajax({
+        type: 'POST',
+        url: `/list/search`,
+        data
+    }).then(function (response) {
+        console.log('response:', response);
+        renderList(response)
+    }).catch(function (error) {
+        console.log('error in GET', error);
+    });
+}
 
 // Search
 function getList() {
