@@ -26,9 +26,9 @@ router.get('/:id', (req, res) => {
         });
 });
 
-router.get('/complete', (req, res) => {
-    let queryText = `SELECT * FROM "todolist" WHERE "completed" = 'YES' ORDER BY "importance" DESC;`;
-    pool.query(queryText).then(result => {
+router.get('/sort/complete', (req, res) => {
+    let queryText = `SELECT * FROM "todolist" WHERE completed = $1 ORDER BY "importance" DESC;`;
+    pool.query(queryText, ['YES']).then(result => {
         res.send(result.rows);
     })
         .catch(error => {
@@ -37,8 +37,8 @@ router.get('/complete', (req, res) => {
         });
 });
 
-router.get('/incomplete', (req, res) => {
-    let queryText = `SELECT * FROM "todolist" WHERE "completed" = 'NO'  ORDER BY "importance" DESC;`;
+router.get('/sort/incomplete', (req, res) => {
+    let queryText = `SELECT * FROM "todolist" WHERE completed = 'NO' ORDER BY "importance" DESC;`;
     pool.query(queryText).then(result => {
         res.send(result.rows);
     })
@@ -51,11 +51,11 @@ router.get('/incomplete', (req, res) => {
 // POST
 router.post('/', (req, res) => {
     let newItem = req.body;
-    console.log('Adding New Item', newKoala);
+    console.log('Adding New Item', newItem);
 
-    let queryText = `INSERT INTO koalas (name, gender, age, ready_to_transfer, notes)
-        VALUES($1, $2, $3, $4, $5);`
-    pool.query(queryText, [newKoala.name, newKoala.gender, newKoala.age, newKoala.readyForTransfer, newKoala.notes])
+    let queryText = `INSERT INTO todoList (name, importance, notes)
+        VALUES($1, $2, $3);`
+    pool.query(queryText, [newItem.name, newItem.importance, newItem.notes])
         .then(result => {
             res.sendStatus(200);
         }).catch(error => {
