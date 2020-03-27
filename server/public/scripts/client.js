@@ -8,6 +8,7 @@ $(document).ready(function () {
     $('#select-importance').val(3)
     $('#btn-add').on('click', handleAddButton)
     $('#listTable').on('change', '.chk-complete', handleCheck)
+    $('#listTable').on('click', '.btn-delete', handleDelete)
 
 
 }); // end doc ready
@@ -28,6 +29,20 @@ function handleCheck() {
         data
     }).then(function (response) {
         console.log('response:', response);
+    }).catch(function (error) {
+        console.log('error in GET', error);
+    });
+}
+
+function handleDelete() {
+    let id = this.id
+
+    $.ajax({
+        type: 'DELETE',
+        url: `/list/${id}`
+    }).then(function (response) {
+        console.log('response:', response);
+        getList();
     }).catch(function (error) {
         console.log('error in GET', error);
     });
@@ -121,7 +136,7 @@ function renderList(items) {
         $('#listTable').append(`<td>${item.name}</td>`);
         $('#listTable').append(`<td>${item.notes}</td>`);
         $('#listTable').append(`<td>${importanceArray[item.importance - 1]}</td>`);
-        $('#listTable').append(`<td><button class="btn btn-outline-danger my-2 my-sm-0" type="button">DELETE</button></td>`);
+        $('#listTable').append(`<td><button class="btn btn-outline-danger my-2 my-sm-0 btn-delete" type="button" id="${item.id}">DELETE</button></td>`);
         $('#listTable').append(`</tr>`);
     }
 }
