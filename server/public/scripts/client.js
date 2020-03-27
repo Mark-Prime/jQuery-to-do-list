@@ -37,15 +37,31 @@ function handleCheck() {
 function handleDelete() {
     let id = this.id
 
-    $.ajax({
-        type: 'DELETE',
-        url: `/list/${id}`
-    }).then(function (response) {
-        console.log('response:', response);
-        getList();
-    }).catch(function (error) {
-        console.log('error in GET', error);
-    });
+    Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+    }).then((result) => {
+        if (result.value) {
+            $.ajax({
+                type: 'DELETE',
+                url: `/list/${id}`
+            }).then(function (response) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your item has been deleted.',
+                    'success'
+                )
+                getList();
+            }).catch(function (error) {
+                console.log('error in GET', error);
+            });
+        }
+    })
 }
 
 function handleAddButton(event) {
