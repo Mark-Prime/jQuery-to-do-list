@@ -14,6 +14,18 @@ router.get('/', (req, res) => {
         });
 });
 
+router.get('/:id', (req, res) => {
+    let importance = req.params.id;
+    let queryText = 'SELECT * FROM "todolist" WHERE "importance" = $1 ORDER BY "name";';
+    pool.query(queryText, [importance]).then(result => {
+        res.send(result.rows);
+    })
+        .catch(error => {
+            console.log('error getting items', error);
+            res.sendStatus(500);
+        });
+});
+
 router.get('/complete', (req, res) => {
     let queryText = `SELECT * FROM "todolist" WHERE "completed" = 'YES' ORDER BY "importance" DESC;`;
     pool.query(queryText).then(result => {

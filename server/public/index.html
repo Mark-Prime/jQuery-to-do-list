@@ -21,13 +21,13 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="javascript:getList()">Home <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Completed</a>
+                    <a class="nav-link" href="javascript:getThisList('complete')">Completed</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Incomplete</a>
+                    <a class="nav-link" href="javascript:getThisList('incomplete')">Incomplete</a>
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
@@ -35,11 +35,11 @@
                         Importance
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Very Important</a>
-                        <a class="dropdown-item" href="#">Important</a>
-                        <a class="dropdown-item" href="#">Moderate</a>
-                        <a class="dropdown-item" href="#">Not Important</a>
-                        <a class="dropdown-item" href="#">Do it Later</a>
+                        <a class="dropdown-item" href="javascript:getImporList(5)">Very Important</a>
+                        <a class="dropdown-item" href="javascript:getImporList(4)">Important</a>
+                        <a class="dropdown-item" href="javascript:getImporList(3)">Moderate</a>
+                        <a class="dropdown-item" href="javascript:getImporList(2)">Not Important</a>
+                        <a class="dropdown-item" href="javascript:getImporList(1)">Do it Later</a>
                     </div>
                 </li>
             </ul>
@@ -85,10 +85,10 @@
                 <hr class="notebook-line">
                 <table class="table">
                     <thead>
+                        <th></th>
                         <th>Name</th>
                         <th>Notes</th>
                         <th>Importance</th>
-                        <th>Done</th>
                         <th></th>
                     </thead>
                     <tbody id="listTable">

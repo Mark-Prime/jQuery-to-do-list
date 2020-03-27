@@ -1,5 +1,7 @@
 console.log('js');
 
+let importanceArray = ['Do it Later', 'Not Important', 'Moderate', 'Important', 'Very Important']
+
 $(document).ready(function () {
     console.log('JQ');
     getList();
@@ -8,7 +10,7 @@ $(document).ready(function () {
 
 function getList() {
     console.log('in getList');
-    // ajax call to server to get koalas
+    
     $.ajax({
         type: 'GET',
         url: '/list'
@@ -18,20 +20,48 @@ function getList() {
     }).catch(function (error) {
         console.log('error in GET', error);
     });
-} // end getKoalas
+}
+
+function getThisList(toSearch) {
+    console.log('in getThisList');
+    
+    $.ajax({
+        type: 'GET',
+        url: `/list/${toSearch}`
+    }).then(function (response) {
+        console.log('getThisList response is', response);
+        renderList(response);
+    }).catch(function (error) {
+        console.log('error in GET', error);
+    });
+}
+
+function getImporList(toSearch) {
+    console.log('in getImporList');
+    
+    $.ajax({
+        type: 'GET',
+        url: `/list/${toSearch}`
+    }).then(function (response) {
+        console.log('getImporList response is', response);
+        renderList(response);
+    }).catch(function (error) {
+        console.log('error in GET', error);
+    });
+}
 
 function renderList(items) {
     $('#listTable').empty();
     for (let item of items) {
         $('#listTable').append(`<tr>`);
+        if (item.completed === 'YES') {
+            $('#listTable').append(`<td><input type="checkbox" class="chk-complete" id="${item.id}" checked></td>`);
+        } else {
+            $('#listTable').append(`<td><input type="checkbox" class="chk-complete" id="${item.id}" ></td>`);
+        }
         $('#listTable').append(`<td>${item.name}</td>`);
         $('#listTable').append(`<td>${item.notes}</td>`);
-        $('#listTable').append(`<td>${item.importance}</td>`);
-        if (item.completed === 'YES') {
-            $('#listTable').append(`<td>DONE</td>`);
-        } else {
-            $('#listTable').append(`<td></td>`);
-        }
+        $('#listTable').append(`<td>${importanceArray[item.importance - 1]}</td>`);
         $('#listTable').append(`<td></td>`);
         $('#listTable').append(`</tr>`);
     }
