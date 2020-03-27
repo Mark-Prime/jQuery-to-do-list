@@ -10,19 +10,84 @@
     <link rel="stylesheet" href="styles/style.css">
     <title>ToDo</title>
 </head>
-<body>
-    <main class="container-fluid">
+<body class="bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="#">To-Do List</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Completed</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Incomplete</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Importance
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Very Important</a>
+                        <a class="dropdown-item" href="#">Important</a>
+                        <a class="dropdown-item" href="#">Moderate</a>
+                        <a class="dropdown-item" href="#">Not Important</a>
+                        <a class="dropdown-item" href="#">Do it Later</a>
+                    </div>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container-fluid">
         <div class="row">
-            <div class="sidebar col-sm-2">
-                sidebar
-            </div>
-            <div class="main col">
-                main
+            <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+                
+            </nav>
+            <div class="main col-md-2 ml-sm-auto col-lg-8 px-4 bg-white">
+                <div class="jumbotron">
+                    <img src="images/1367614.png" class="float-left" alt="" id="header-image">
+                    <h1 class="display-4">To-Do List</h1>
+                    <p class="lead">Easily organize your tasks as well as being able to manage the imporance and type of task they are.</p>
+                </div>
+                <form>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Task Title</span>
+                        </div>
+                        <input type="text" aria-label="Title" class="form-control" id="in-title">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Notes</span>
+                        </div>
+                        <input type="text" aria-label="Notes" class="form-control" id="in-notes">
+                        <select class="form-control custom-select" id="select-importance">
+                            <option value="5">Very Important</option>
+                            <option value="4">Important</option>
+                            <option value="3">Moderate</option>
+                            <option value="2">Not Important</option>
+                            <option value="1">Do it Later</option>
+                        </select>
+                        <div class="input-group-prepend">
+                            <button class="btn btn-outline-secondary" type="button" id="button-addon1">Add</button>
+                        </div>
+                    </div>
+                </form>
+                <hr class="notebook-line">
             </div>
             <div class="ad col-sm-2">
                 advert????
             </div>
         </div>
-    </main>
+    </div>
 </body>
 </html>
