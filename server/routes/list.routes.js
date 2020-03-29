@@ -4,7 +4,7 @@ const pool = require('../modules/pool');
 
 // GET
 router.get('/', (req, res) => {
-    let queryText = 'SELECT * FROM "todolist" ORDER BY "completed", "importance" DESC;';
+    let queryText = 'SELECT * FROM "todolist" ORDER BY "completed", "importance" DESC, "name";';
     pool.query(queryText).then(result => {
         res.send(result.rows);
     })
@@ -68,7 +68,7 @@ router.post('/search', (req, res) => {
     let searchFor = req.body;
     console.log('Searching for', searchFor);
 
-    let queryText = `SELECT * FROM "todolist" WHERE "name" ILIKE $1 OR "notes" ILIKE $1 ORDER BY "completed", "importance" DESC;`
+    let queryText = `SELECT * FROM "todolist" WHERE "name" ILIKE $1 OR "notes" ILIKE $1 ORDER BY "completed", "importance" DESC, "name";`
     pool.query(queryText, [`%${searchFor.searchFor}%`])
         .then(result => {
             res.send(result.rows);

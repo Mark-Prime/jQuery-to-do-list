@@ -16,3 +16,6 @@ VALUES('Laundry', 3, 'Don''t do roommates');
 INSERT INTO todolist
     (name, importance, notes, completed)
 VALUES('Eat leftovers', 1, 'roomates not your own', 'YES'); 
+INSERT INTO todolist
+    (name, importance, notes)
+VALUES('BUY MORE HUMMUS', 5, 'MOREEEEE'); 

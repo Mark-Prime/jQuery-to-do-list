@@ -20,8 +20,10 @@ function handleCheck() {
     let data = {};
     if ($(this).is(':checked')) {
         data.status = 'YES';
+        $(`.${id}`).css('text-decoration', 'line-through');
     } else {
         data.status = 'NO';
+        $(`.${id}`).css('text-decoration', 'none');
     }
 
     $.ajax({
@@ -54,7 +56,7 @@ function handleDelete() {
             }).then(function (response) {
                 Swal.fire(
                     'Deleted!',
-                    'Your item has been deleted.',
+                    'Your task has been deleted.',
                     'success'
                 )
                 getList();
@@ -74,6 +76,9 @@ function handleAddButton(event) {
         data.importance = $('#select-importance').val();
         data.notes = $('#in-notes').val();
 
+        $('#in-title').val('');
+        $('#select-importance').val(3);
+        $('#in-notes').val('');
 
         $.ajax({
             type: 'POST',
@@ -161,16 +166,23 @@ function getImporList(toSearch) {
 function renderList(items) {
     $('#listTable').empty();
     for (let item of items) {
-        $('#listTable').append(`<tr>`);
+        $('#listTable').append(`<tr id="tr-${item.id}">`);
         if (item.completed === 'YES') {
             $('#listTable').append(`<td class="border-right"><input type="checkbox" class="chk-complete" id="${item.id}" checked></td>`);
+            $(`.${item.id}`).css('text-decoration', 'line-through');
         } else {
             $('#listTable').append(`<td class="border-right"><input type="checkbox" class="chk-complete" id="${item.id}" ></td>`);
+            $(`.${item.id}`).css('text-decoration', 'none');
         }
-        $('#listTable').append(`<td>${item.name}</td>`);
-        $('#listTable').append(`<td>${item.notes}</td>`);
-        $('#listTable').append(`<td>${importanceArray[item.importance - 1]}</td>`);
+        $('#listTable').append(`<td><span class="text-danger ${item.id}"><span class="text-dark">${item.name}</span></span></td>`);
+        $('#listTable').append(`<td><span class="text-danger ${item.id}"><span class="text-dark">${item.notes}</span></span></td>`);
+        $('#listTable').append(`<td><span class="text-danger ${item.id}"><span class="text-dark">${importanceArray[item.importance - 1]}</span></span></td>`);
         $('#listTable').append(`<td><button class="btn btn-outline-danger my-2 my-sm-0 btn-delete" type="button" id="${item.id}">DELETE</button></td>`);
         $('#listTable').append(`</tr>`);
+        if (item.completed === 'YES') {
+            $(`.${item.id}`).css('text-decoration', 'line-through');
+        } else {
+            $(`.${item.id}`).css('text-decoration', 'none');
+        }
     }
 }
